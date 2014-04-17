@@ -21,12 +21,13 @@ higher using only modules in the python standard library.
 
 Examples
 ========
-Example:
-    Here is a shebang line that will run the script with a python2.6 interpreter
-    that has both the foo and bar modules:
-        #!/usr/bin/python_shebang version:2.6 module:foo module:bar
+Here is a shebang line that will run the script with a python2.6 interpreter
+that has both the foo and bar modules:
 
-Example 2:
-    This shebang line will run the script with a python 3 interpreter that has
-    the paramiko module:
-        #!/usr/bin/python_shebang version:3 module:paramiko
+#!/usr/bin/python_shebang version:2.6 module:foo module:bar
+
+This shebang line will run the script with a python 3 interpreter that has
+the paramiko module:
+
+#!/usr/bin/python_shebang version:3 module:paramiko
+
