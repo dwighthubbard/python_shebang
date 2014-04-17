@@ -34,7 +34,7 @@ the paramiko module:
 ```#!/usr/bin/python_shebang version:3 module:paramiko```
 
 
-Running the command directory will give a python shell that meets the
+Running the command directly will give a python shell that meets the
 requirements (the asyncio module was added in python 3.4):
 
 ```$ /usr/bin/python_shebang module:asyncio
