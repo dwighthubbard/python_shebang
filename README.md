@@ -10,7 +10,13 @@ and python modules that are required.
 Installation
 ============
 Since the shebang parsing does not use expand the path, this script needs needs
-to be installed in a fixed well known location (recommend /usr/bin)
+to be installed in a fixed well known location (recommend /usr/bin).
+
+
+Supported Operating Systems
+===========================
+This script is designed to operate on Unix operating systems.  It is of no
+value on Windows which does not use shebang.
 
 
 Dependencies
