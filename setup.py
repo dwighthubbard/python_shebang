@@ -14,7 +14,7 @@ setup(
                 "script",
     long_description=open('README.md').read(),
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 2 - Beta",
         "Topic :: Utilities",
         "License :: OSI Approved :: Apache License V2",
     ],
