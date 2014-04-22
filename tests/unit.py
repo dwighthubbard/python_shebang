@@ -25,7 +25,7 @@ import tempfile
 import os
 
 
-test_script = """#!/usr/bin/env %s
+test_script = """#!/usr/bin/env {}
 import sys
 print('Python ok')
 print(sys.version)
@@ -47,7 +47,8 @@ class UnitTest(unittest.TestCase):
                     os.getcwd(), '../python_shebang/bin/python_shebang'))
         self.script_file = tempfile.NamedTemporaryFile(mode='w+b')
         os.fchmod(self.script_file.fileno(), 0o700)
-        self.script_file.write(test_script % python_shebang_location)
+        full_script = test_script.format(python_shebang_location).encode('utf-8')
+        self.script_file.write(full_script)
         self.script_file.flush()
 
     def testRunFromShell(self):
