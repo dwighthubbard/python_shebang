@@ -34,24 +34,27 @@ print(sys.version)
 
 class UnitTest(unittest.TestCase):
     script_file = None
+
     def setUp(self):
         # Create a tempfile with a script that uses our shebang handler
-        python_shebang_location = None
+        python_shebang_location = os.path.abspath(
+            os.path.join(os.getcwd(), '../python_shebang/bin/python_shebang')
+        )
         if os.path.exists(
-                os.path.join(os.getcwd(), 'python_shebang/bin/python_shebang')):
+                os.path.join(os.getcwd(), 'python_shebang/bin/python_shebang')
+        ):
             python_shebang_location = os.path.join(
-                os.getcwd(), 'python_shebang/bin/python_shebang')
-        else:
-            python_shebang_location = os.path.abspath(
-                os.path.join(
-                    os.getcwd(), '../python_shebang/bin/python_shebang'))
+                os.getcwd(),
+                'python_shebang/bin/python_shebang'
+            )
         self.script_file = tempfile.NamedTemporaryFile(mode='w+b')
         os.fchmod(self.script_file.fileno(), 0o700)
-        full_script = test_script.format(python_shebang_location).encode('utf-8')
+        full_script = test_script.format(
+            python_shebang_location).encode('utf-8')
         self.script_file.write(full_script)
         self.script_file.flush()
 
-    def testRunFromShell(self):
+    def test_run_from_shell(self):
         result = os.popen(self.script_file.name, 'r').read()
         self.assertIn('Python ok', result)
 
