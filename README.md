@@ -1,5 +1,8 @@
 python_shebang Description
 ==========================
+
+[![Build Status](https://travis-ci.org/yahoo/python_shebang.svg?branch=master)](https://travis-ci.org/yahoo/python_shebang)
+
 This package provides a command that can be run from /usr/bin/env on the
 shebang line of a script that will find an appropriate python interpreter
 to run it.
