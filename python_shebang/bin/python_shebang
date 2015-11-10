@@ -17,10 +17,10 @@ Example:
     Run command with a python 3 interpreter that has the paramiko module:
         #!/usr/bin/python_shebang version:3 module:paramiko
 """
-#Copyright (c) 2014 Yahoo! Inc. All rights reserved.
-#Licensed under the Apache License, Version 2.0 (the "License");
-#you may not use this file except in compliance with the License.
-#You may obtain a copy of the License at
+# Copyright (c) 2014-2015 Yahoo! Inc. All rights reserved.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
 # http://www.apache.org/licenses/LICENSE-2.0
 #
@@ -29,10 +29,6 @@ Example:
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License. See accompanying LICENSE file.
-
-__author__ = 'dhubbard'
-
-
 import os
 import sys
 
@@ -62,6 +58,7 @@ def __populate_interpreters():
     interpreters['2.6'] += __path_python('python2.6')
     interpreters['2.7'] += __path_python('python2.7')
     interpreters['3.4'] += __path_python('python3.4')
+    interpreters['3.5'] += __path_python('python3.5')
 
     # Generate a list for major version numbers
     interpreters['2'] = []
@@ -111,7 +108,7 @@ def __check_python_interpreter_modules(path, modules):
     """
     for module in modules:
         result = os.popen(
-            '%s -c "import %s" 2>&1' % (path, module)).readlines()
+            '%s -Wignore -c "import %s" 2>&1' % (path, module)).readlines()
         if result:
             if result[-1].startswith('ImportError:'):
                 raise ModuleNotFound(
@@ -144,7 +141,7 @@ if __name__ == "__main__":
     # Parse command line arguments, note we have to run on multiple python
     # versions so we don't use optparse/argparse
     command_args = []
-    version = "3.4"
+    version = "all"
     modules = []
     findpython_args = True
     python_interpreters = __populate_interpreters()

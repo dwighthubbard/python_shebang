@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='python_shebang',
-    version='0.0.1',
+    version='0.0.2',
     author='Dwight Hubbard',
     author_email='d@dhub.me',
     packages=['python_shebang'],
