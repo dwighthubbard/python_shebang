@@ -53,7 +53,8 @@ class UnitTest(unittest.TestCase):
 
     def create_file_from_format(self, format):
         os_handle, filename = tempfile.mkstemp()
-        os.fchmod(os_handle, 0o700)
+        os.close(os_handle)
+        os.chmod(filename, 0o700)
         with open(filename, 'w+b') as script_file:
             script_file.write(test_scripts[format].format(self.python_shebang_location).encode('utf-8'))
         return filename
