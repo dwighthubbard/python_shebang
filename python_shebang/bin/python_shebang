@@ -142,6 +142,7 @@ if __name__ == "__main__":
     # versions so we don't use optparse/argparse
     command_args = []
     version = "all"
+    virtualenv = None
     modules = []
     findpython_args = True
     python_interpreters = __populate_interpreters()
@@ -162,14 +163,21 @@ if __name__ == "__main__":
                 'python_version:', '').replace('version:', '').strip()
             if t in python_interpreters.keys():
                 version = t.strip()
+        elif arg.startswith('python_virtualenv:') or arg.startswith('virtualenv:'):
+            virtualenv = arg.replace(
+                'python_virtualenv:', '').replace('virtualenv:', '')
         else:
             findpython_args = False
             command_args.append(arg)
 
-    interpreter = __search_for_interpreters(
-        version, modules, python_interpreters=python_interpreters
-    )
+    if virtualenv:
+        interpreter = '. ' + os.path.join(virtualenv, 'bin/activate') + ';' + os.path.join(virtualenv, 'bin/python')
+    else:
+        interpreter = __search_for_interpreters(
+            version, modules, python_interpreters=python_interpreters
+        )
     command = '%s %s' % (interpreter, ' '.join(command_args))
+    print(command)
     rc = os.system(command) >> 8
 
     sys.exit(rc)
