@@ -51,23 +51,26 @@ class UnitTest(unittest.TestCase):
         # Create a tempfile with a script that uses our shebang handler
         self.python_shebang_location = which('python_shebang')
 
+    def create_file_from_format(self, format):
+        os_handle, filename = tempfile.mkstemp()
+        os.fchmod(os_handle, 0o700)
+        with open(filename, 'w+b') as script_file:
+            script_file.write(test_scripts[format].format(self.python_shebang_location).encode('utf-8'))
+        return filename
+
     def test_run_from_shell_simple(self):
-        with tempfile.NamedTemporaryFile(mode='w+b') as script_file:
-            os.fchmod(script_file.fileno(), 0o700)
-            script_file.write(test_scripts['simple'].format(self.python_shebang_location).encode('utf-8'))
-            script_file.flush()
-            with os.popen(script_file.name, 'r') as command_handle:
-                result = command_handle.read()
-            self.assertIn('Python ok', result)
+        script_file = self.create_file_from_format('simple')
+        with os.popen(script_file, 'r') as command_handle:
+            result = command_handle.read()
+        os.remove(script_file)
+        self.assertIn('Python ok', result)
 
     def test_run_from_shell_virtualenv(self):
-        with tempfile.NamedTemporaryFile(mode='w+b') as script_file:
-            os.fchmod(script_file.fileno(), 0o700)
-            script_file.write(test_scripts['virtualenv'].format(self.python_shebang_location).encode('utf-8'))
-            script_file.flush()
-            with os.popen(script_file.name, 'r') as command_handle:
-                result = command_handle.read()
-            self.assertIn('Virtualenv ok', result)
+        script_file = self.create_file_from_format('virtualenv')
+        with os.popen(script_file, 'r') as command_handle:
+            result = command_handle.read()
+        os.remove(script_file)
+        self.assertIn('Virtualenv ok', result)
 
 
 if __name__ == "__main__":
