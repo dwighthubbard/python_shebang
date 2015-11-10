@@ -25,11 +25,13 @@ import tempfile
 import os
 
 
-test_script = """#!/usr/bin/env {}
+test_scripts = {
+    'simple': """#!/usr/bin/env {}
 import sys
 print('Python ok')
 print(sys.version)
 """
+}
 
 
 class UnitTest(unittest.TestCase):
@@ -49,13 +51,17 @@ class UnitTest(unittest.TestCase):
             )
         self.script_file = tempfile.NamedTemporaryFile(mode='w+b')
         os.fchmod(self.script_file.fileno(), 0o700)
-        full_script = test_script.format(
+        full_script = test_scripts['simple'].format(
             python_shebang_location).encode('utf-8')
         self.script_file.write(full_script)
         self.script_file.flush()
 
+    def tearDown(self):
+        self.script_file.close()
+
     def test_run_from_shell(self):
-        result = os.popen(self.script_file.name, 'r').read()
+        with os.popen(self.script_file.name, 'r') as command_handle:
+            result = command_handle.read()
         self.assertIn('Python ok', result)
 
 
