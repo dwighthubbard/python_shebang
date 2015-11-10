@@ -177,7 +177,6 @@ if __name__ == "__main__":
             version, modules, python_interpreters=python_interpreters
         )
     command = '%s %s' % (interpreter, ' '.join(command_args))
-    print(command)
     rc = os.system(command) >> 8
 
     sys.exit(rc)
