@@ -140,9 +140,7 @@ args = {
     'author': 'dhubbard',
     'author_email': 'dhubbard@yahoo-inc.com',
     'classifiers': [
-        "Development Status :: 2 - Beta",
         "Topic :: Utilities",
-        "License :: OSI Approved :: Apache License V2",
     ],
     'url': 'https://github.com/yahoo/python_shebang',
     'license': 'Apache V2',
